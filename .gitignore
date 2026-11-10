@@ -1,0 +1,10 @@
+.DS_Store
+.idea/
+.vscode/
+.zed/
+*.out
+*.exe
+*.test
+coverage.out
+build/
+cmake-build-*/
