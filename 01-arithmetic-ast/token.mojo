@@ -11,6 +11,7 @@ comptime Divide = 4
 comptime Exponent = 5
 comptime LBrac = 6
 comptime RBrac = 7
+comptime Num = 10
 
 # special chars
 comptime EOF = 8

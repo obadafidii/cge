@@ -8,6 +8,7 @@ from token import (
   Exponent,
   LBrac,
   RBrac,
+  Num,
   BAD,
   EOF,
 )
@@ -20,6 +21,9 @@ struct Lexer:
   def __init__(out self, source: String):
     self._text = source
     self._cursor = 0
+
+  def _is_digit(self, char: StringSpan) -> Bool:
+    return char >= "0" and char <= "9"
 
   def _advance(mut self):
     if self._cursor >= self._text.byte_length():
@@ -53,6 +57,19 @@ struct Lexer:
         _tokens.append(Token("(", LBrac))
       elif char == ")":
         _tokens.append(Token(")", RBrac))
+      elif self._is_digit(char):
+        var current = self._cursor
+         # loop while checking if we've reached end of file and its a digit
+        while self._cursor < self._text.byte_length() and self._is_digit(self._text[byte=self._cursor]):
+          self._advance()
+
+        var num = String(self._text[byte=current:self._cursor])
+        try:
+          _ = Int(num)
+          _tokens.append(Token(num, Num))
+          continue
+        except:
+          _tokens.append(Token(num, BAD))
       else:
         _tokens.append(Token("", BAD))
 
@@ -125,6 +142,15 @@ def test_bad_token() raises:
   var tokens = lexer.scan()
   assert_equal(len(tokens), 2)
   assert_equal(tokens[0].kind, BAD)
+
+def test_number_scanning() raises:
+  var lexer = Lexer(
+    source="1232"
+  )
+  var tokens = lexer.scan()
+  assert_equal(len(tokens), 2)
+  assert_equal(tokens[0].raw, "1232")
+  assert_equal(tokens[0].kind, Num)
 
 def main() raises:
     TestSuite.discover_tests[__functions_in_module()]().run()
