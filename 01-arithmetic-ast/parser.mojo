@@ -2,7 +2,7 @@ from token import Token
 
 @fieldwise_init
 struct Parser:
-  var tokens: List[Token]
+  var _tokens: List[Token]
 
   def parse(self):
     pass
