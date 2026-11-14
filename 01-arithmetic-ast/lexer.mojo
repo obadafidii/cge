@@ -1,3 +1,4 @@
+from std.format._utils import write_to
 from std.testing import TestSuite, assert_equal
 from token import (
   Token,
@@ -19,9 +20,12 @@ struct Span(ImplicitlyCopyable):
   var row: Int
 
 @fieldwise_init
-struct LexerError(ImplicitlyCopyable):
+struct LexerError(ImplicitlyCopyable, Writable):
   var error: String
   var span: Span
+
+  def write_to(self, mut writer: Some[Writer]):
+    t"error '{self.error}' at col={self.span.col} row={self.span.row}".write_to(writer)
 
 @fieldwise_init
 struct Lexer:
@@ -34,7 +38,7 @@ struct Lexer:
     self._cursor = 0
     self._errors = List[LexerError]()
 
-  def _get_errors(self) -> ref [self._errors] List[LexerError]:
+  def errors(self) -> ref [self._errors] List[LexerError]:
     return self._errors
 
   def _track_error(mut self, msg: String, col: Int, row: Int):
@@ -165,8 +169,8 @@ def test_bad_token() raises:
     source="@"
   )
   var tokens = lexer.scan()
-  assert_equal(len(lexer._get_errors()), 1)
-  assert_equal(lexer._get_errors()[0].error, "unexpected character: @")
+  assert_equal(len(lexer.errors()), 1)
+  assert_equal(lexer.errors()[0].error, "unexpected character: @")
   assert_equal(len(tokens), 1)
   assert_equal(tokens[0].kind, EOF)
 
@@ -182,11 +186,13 @@ def test_number_scanning() raises:
 def test_lexer_tracks_unexpected_char() raises:
   # there is 5 invalid character here
   var lexer = Lexer(
-    source=" + / 123#@>>>2 * "
+    source=" + / 123#@ >2 [* >> !!"
   )
   var tokens = lexer.scan()
   assert_equal(len(tokens), 6)
-  assert_equal(len(lexer._get_errors()), 5)
+  assert_equal(len(lexer.errors()), 8)
+  for error in lexer.errors():
+    print(error)
 
 def main() raises:
     TestSuite.discover_tests[__functions_in_module()]().run()
