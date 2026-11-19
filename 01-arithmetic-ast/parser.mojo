@@ -85,7 +85,9 @@ struct Parser:
     self._binary_fns[Exponent] = Self._parse_be
 
   def parse(mut self) raises -> Int:
-    return self._parse_expr()
+    while self._cursor < len(self._tokens):
+      var _ = self._parse_expr()
+    return 1
 
   # This the main method converting token stream to trees
   #
@@ -106,9 +108,7 @@ struct Parser:
     var token = self._consume()
 
     if token.kind == Num:
-      return self._track_expr(
-        Expr(NumExpr(value=Int(token.raw)))
-      )
+      return self._parse_lit_expr(token)
 
     var unary_fn = self._unary_fns.get(token.kind)
     if unary_fn:
@@ -129,10 +129,14 @@ struct Parser:
   def _parse_be(mut self, left: Expr) raises -> Int:
     return -1
 
+  def _parse_lit_expr(mut self, token: Token) raises -> Int:
+    return self._track_expr(
+      Expr(NumExpr(value=Int(token.raw)))
+    )
+
   # this utilizes the _unary_fns to parse unary function
   # any type of unary expression is parsed with this method
   def _parse_unary_expr(mut self) raises -> Int:
-    print("here = ", self._cursor)
     var idx = self._parse_expr()
     return idx
 
@@ -153,22 +157,57 @@ struct Parser:
     return self._tokens[self._cursor+1]
 
   def _move_cursor(mut self):
-    if self._cursor >= len(self._ast):
-      self._cursor = 0
-    else:
-      self._cursor += 1
+    self._cursor += 1
 
-  # parse binary expression using flattened trees
-  # todo: last exercise
-  def _parse_be_flat(mut self):
-    pass
+  def pprint(self):
+    print("AST")
+    for i in range(len(self._ast)):
+        self._print_expr(
+            self._ast[i],
+            "",
+            i == len(self._ast) - 1
+        )
 
+  def _print_expr(
+      self,
+      expr: Expr,
+      prefix: String,
+      is_last: Bool
+  ):
+    var connector = "├── "
+    var child_prefix = prefix + "│   "
+
+    if is_last:
+        connector = "└── "
+        child_prefix = prefix + "    "
+
+    if expr.isa[NumExpr]():
+        ref literal = expr[NumExpr]
+        print(prefix + connector + "NumExpr")
+        print(child_prefix + "└── value: " + String(literal.value))
+
+    elif expr.isa[UnaryExpr]():
+        ref unary = expr[UnaryExpr]
+        print(prefix + connector + "UnaryExpr (" + unary.op + ")")
+        self._print_expr(
+            self._ast[unary.operand],
+            child_prefix,
+            True
+        )
+
+    elif expr.isa[BinaryExpr]():
+        ref binary = expr[BinaryExpr]
+        print(prefix + connector + "BinaryExpr")
+        print(child_prefix + "├── op: " + binary.op)
+        print(child_prefix + "├── lhs: " + String(binary.lhs))
+        print(child_prefix + "└── rhs: " + String(binary.rhs))
 
 
 def test_parse_literals() raises:
-  var tokens: List[Token] = [Token("+", Plus), Token("1", Num)]
+  var tokens: List[Token] = [Token("1", Num), Token("+", Plus), Token("1", Num)]
   var parser = Parser(tokens)
-  var _ = parser._parse_expr()
+  var _ = parser.parse()
+  parser.pprint()
 
 # def test_parsing_unary_expr_works() raises:
 #   var tokens: List[Token] = [Token("+", Plus), Token("+", Plus), Token("-", Minus), Token("1", Num)]
