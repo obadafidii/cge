@@ -1,5 +1,5 @@
 @fieldwise_init
-struct Token(ImplicitlyCopyable):
+struct Token(ImplicitlyCopyable, Hashable):
   var raw: String
   var kind: Int
 
@@ -27,3 +27,6 @@ def match_token_kind(op: String) -> Int:
   elif op == "^":
     return Exponent
   return BAD
+
+def is_operator(tok: String) -> Bool:
+  return match_token_kind(tok) == BAD
