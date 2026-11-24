@@ -7,12 +7,12 @@ def _indent(mut w: Some[Writer], level: Int):
 struct BasicBlock(Copyable, DebugWritable, Movable, Writable):
   var _name: String
   var instructions: List[Code]
-  var dest_block_label: Optional[String]
+  var dest_block_label: Optional[List[String]]
 
   def __init__(out self,
       name: String,
       instructions: List[Code],
-      dest: Optional[String] = None
+      dest: Optional[List[String]] = None
   ):
     self._name = name
     self.instructions = instructions.copy()
@@ -41,7 +41,7 @@ struct BasicBlock(Copyable, DebugWritable, Movable, Writable):
       w.write("instructions: [],\n")
     _indent(w, level + 1)
     if self.dest_block_label:
-      w.write('dest_block_label: Some("', self.dest_block_label.value(), '"),\n')
+      w.write('dest_block_label: ', self.dest_block_label.value(), ',\n')
     else:
       w.write("dest_block_label: None,\n")
     _indent(w, level)
@@ -85,4 +85,4 @@ struct Graph(Movable, Writable):
     w.write("}")
 
 def is_control_passing(val: String) -> Bool:
-  return val == "jmp" or val == "call" or val == "ret"
+  return val == "jmp" or val == "call" or val == "ret" or val == "br"

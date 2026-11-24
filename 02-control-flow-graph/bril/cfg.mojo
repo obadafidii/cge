@@ -30,7 +30,7 @@ def buildx(instructions: List[Code]) raises -> Graph:
         var bb = BasicBlock(
           name = "blk-{}".format(block_count),
           instructions = group^,
-          dest = instruction.labels[0],
+          dest = instruction.labels.copy(),
         )
         g.add(label, bb^)
         block_count += 1
