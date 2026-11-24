@@ -52,6 +52,5 @@ def main() raises:
   var file = open("/dev/stdin", "r")
   var raw_content = file.read()
   var program = parse_bril(raw_content)
-  var instructions = program.functions[0].instrs.copy()
-  var cfg = buildx(instructions)
+  var cfg = buildx(program.functions[0].instrs)
   print(cfg)
