@@ -1,0 +1,390 @@
+{
+  "functions": [
+    {
+      "instrs": [
+        {
+          "dest": "v0",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "dest": "v1",
+          "op": "const",
+          "type": "int",
+          "value": 2
+        },
+        {
+          "labels": [
+            "label"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "label"
+        },
+        {
+          "args": [
+            "v0",
+            "v1"
+          ],
+          "dest": "v2",
+          "op": "add",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v2"
+          ],
+          "op": "print"
+        },
+        {
+          "label": "label2"
+        },
+        {
+          "args": [
+            "v3"
+          ],
+          "op": "print"
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}
+{
+  "functions": [
+    {
+      "instrs": [
+        {
+          "dest": "v0",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "dest": "v1",
+          "op": "const",
+          "type": "int",
+          "value": 2
+        },
+        {
+          "labels": [
+            "label"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "label"
+        },
+        {
+          "args": [
+            "v0",
+            "v1"
+          ],
+          "dest": "v2",
+          "op": "add",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v2"
+          ],
+          "op": "print"
+        },
+        {
+          "label": "label2"
+        },
+        {
+          "args": [
+            "v3"
+          ],
+          "op": "print"
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}
+{
+  "functions": [
+    {
+      "instrs": [
+        {
+          "dest": "v0",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "dest": "v1",
+          "op": "const",
+          "type": "int",
+          "value": 2
+        },
+        {
+          "labels": [
+            "label"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "label"
+        },
+        {
+          "args": [
+            "v0",
+            "v1"
+          ],
+          "dest": "v2",
+          "op": "add",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v2"
+          ],
+          "op": "print"
+        },
+        {
+          "label": "jal"
+        },
+        {
+          "args": [
+            "v3"
+          ],
+          "op": "print"
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}
+{
+  "functions": [
+    {
+      "instrs": [
+        {
+          "dest": "v0",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "dest": "v1",
+          "op": "const",
+          "type": "int",
+          "value": 2
+        },
+        {
+          "labels": [
+            "label"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "hmmm"
+        },
+        {
+          "args": [
+            "v0",
+            "v1"
+          ],
+          "dest": "v2",
+          "op": "add",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v2"
+          ],
+          "op": "print"
+        },
+        {
+          "label": "jal"
+        },
+        {
+          "args": [
+            "v3"
+          ],
+          "op": "print"
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}
+{
+  "functions": [
+    {
+      "instrs": [
+        {
+          "dest": "v0",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "dest": "v1",
+          "op": "const",
+          "type": "int",
+          "value": 2
+        },
+        {
+          "labels": [
+            "label"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "hmmm"
+        },
+        {
+          "args": [
+            "v0",
+            "v1"
+          ],
+          "dest": "v2",
+          "op": "add",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v2"
+          ],
+          "op": "print"
+        },
+        {
+          "args": [
+            "v3"
+          ],
+          "op": "print"
+        },
+        {
+          "label": "jal"
+        },
+        {
+          "args": [
+            "v3"
+          ],
+          "op": "print"
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}
+{
+  "functions": [
+    {
+      "instrs": [
+        {
+          "dest": "v0",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "dest": "v1",
+          "op": "const",
+          "type": "int",
+          "value": 2
+        },
+        {
+          "labels": [
+            "label"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "hmmm"
+        },
+        {
+          "args": [
+            "v0",
+            "v1"
+          ],
+          "dest": "v2",
+          "op": "add",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v2"
+          ],
+          "op": "print"
+        },
+        {
+          "args": [
+            "v3"
+          ],
+          "op": "print"
+        },
+        {
+          "label": "jal"
+        },
+        {
+          "args": [
+            "v3"
+          ],
+          "op": "print"
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}
+{
+  "functions": [
+    {
+      "instrs": [
+        {
+          "dest": "v0",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "dest": "v1",
+          "op": "const",
+          "type": "int",
+          "value": 2
+        },
+        {
+          "labels": [
+            "label"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "label"
+        },
+        {
+          "args": [
+            "v0",
+            "v1"
+          ],
+          "dest": "v2",
+          "op": "add",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v2"
+          ],
+          "op": "print"
+        },
+        {
+          "label": "label2"
+        },
+        {
+          "args": [
+            "v3"
+          ],
+          "op": "print"
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}

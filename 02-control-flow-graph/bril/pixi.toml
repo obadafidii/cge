@@ -1,0 +1,12 @@
+[workspace]
+authors = ["tdadadavid <davidtofunmidada@gmail.com>"]
+channels = ['https://conda.modular.com/max-nightly', 'conda-forge', "https://repo.prefix.dev/modular-community"]
+name = "bril"
+platforms = ['osx-arm64']
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+emberjson = ">=0.4.0,<0.5"
+mojo = "==1.1.0"
