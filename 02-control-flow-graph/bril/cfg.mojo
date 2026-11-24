@@ -2,20 +2,6 @@ from std.io.file import open
 from types import Graph, BasicBlock, is_control_passing
 from bril import Code, parse_bril
 
-def add_block_to_graph(
-    mut g: Graph,
-    name: String,
-    instruction: List[Code],
-    dest: List[String],
-    label: String
-):
-  var bb = BasicBlock(
-    name = name,
-    instructions = instruction.copy(),
-    dest = dest.copy(),
-  )
-  g.add(label, bb^)
-
 def buildx(instructions: List[Code]) raises -> Graph:
   var label = "main"
   var block_count = 1
