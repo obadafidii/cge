@@ -7,7 +7,7 @@
           "op": "const",
           "pos": {
             "col": 3,
-            "row": 3
+            "row": 2
           },
           "type": "int",
           "value": 1
@@ -17,10 +17,24 @@
           "op": "const",
           "pos": {
             "col": 3,
-            "row": 4
+            "row": 3
           },
           "type": "int",
           "value": 2
+        },
+        {
+          "args": [
+            "cond"
+          ],
+          "labels": [
+            "label",
+            "label2"
+          ],
+          "op": "br",
+          "pos": {
+            "col": 3,
+            "row": 4
+          }
         },
         {
           "label": "label",
@@ -53,10 +67,20 @@
           }
         },
         {
+          "labels": [
+            "label2"
+          ],
+          "op": "jmp",
+          "pos": {
+            "col": 3,
+            "row": 8
+          }
+        },
+        {
           "label": "label2",
           "pos": {
             "col": 1,
-            "row": 8
+            "row": 9
           }
         },
         {
@@ -66,14 +90,14 @@
           "op": "print",
           "pos": {
             "col": 3,
-            "row": 9
+            "row": 10
           }
         }
       ],
       "name": "main",
       "pos": {
         "col": 1,
-        "row": 2
+        "row": 1
       }
     }
   ]

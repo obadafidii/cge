@@ -37,13 +37,13 @@ def buildx(instructions: List[Code]) raises -> Graph:
       # terminate with a control flow, so execution just moves
       # to next label
       if len(group) != 0:
-        var last_instr = group[len(group) - 1].instr().copy()
+        var fallthrough_label: List[String] = [code.label().name()]
         g.add(
           label,
           BasicBlock(
             name = "blk-{}".format(block_count),
             instructions = group^,
-            dest = last_instr.labels.copy(),
+            dest = fallthrough_label.copy()
           )
         )
         block_count += 1
