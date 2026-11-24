@@ -2,11 +2,9 @@
 @main {
   v0: int = const 1;
   v1: int = const 2;
-  br  cond .label .label2;
 .label:
   v2: int = add v0 v1;
   print v2;
-  jmp .label2;
 .label2:
   print v3;
 }

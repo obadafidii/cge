@@ -23,24 +23,10 @@
           "value": 2
         },
         {
-          "args": [
-            "cond"
-          ],
-          "labels": [
-            "label",
-            "label2"
-          ],
-          "op": "br",
-          "pos": {
-            "col": 3,
-            "row": 5
-          }
-        },
-        {
           "label": "label",
           "pos": {
             "col": 1,
-            "row": 6
+            "row": 5
           }
         },
         {
@@ -52,7 +38,7 @@
           "op": "add",
           "pos": {
             "col": 3,
-            "row": 7
+            "row": 6
           },
           "type": "int"
         },
@@ -63,24 +49,14 @@
           "op": "print",
           "pos": {
             "col": 3,
-            "row": 8
-          }
-        },
-        {
-          "labels": [
-            "label2"
-          ],
-          "op": "jmp",
-          "pos": {
-            "col": 3,
-            "row": 9
+            "row": 7
           }
         },
         {
           "label": "label2",
           "pos": {
             "col": 1,
-            "row": 10
+            "row": 8
           }
         },
         {
@@ -90,7 +66,7 @@
           "op": "print",
           "pos": {
             "col": 3,
-            "row": 11
+            "row": 9
           }
         }
       ],

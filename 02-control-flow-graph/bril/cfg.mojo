@@ -2,16 +2,23 @@ from std.io.file import open
 from types import Graph, BasicBlock, is_control_passing
 from bril import Code, parse_bril
 
+def add_block_to_graph(
+    mut g: Graph,
+    name: String,
+    instruction: List[Code],
+    dest: List[String],
+    label: String
+):
+  var bb = BasicBlock(
+    name = name,
+    instructions = instruction.copy(),
+    dest = dest.copy(),
+  )
+  g.add(label, bb^)
 
-# There is still bug in this implementation!
-#
-# All blocks must have a control passing instruction for
-# the graph to be built well, but a basic block does not
-# need to end with control passing instruction for example
-# a block that ends with "print" instruction won't build well
 def buildx(instructions: List[Code]) raises -> Graph:
   var label = "main"
-  var block_count = 0
+  var block_count = 1
   var g = Graph()
   var group: List[Code] = []
 
@@ -29,15 +36,31 @@ def buildx(instructions: List[Code]) raises -> Graph:
       group.append(instruction.copy())
 
       if is_control_passing(instruction.op):
-        var bb = BasicBlock(
-          name = "blk-{}".format(block_count),
-          instructions = group^,
-          dest = instruction.labels.copy(),
+        g.add(
+          label,
+          BasicBlock(
+            name = "blk-{}".format(block_count),
+            instructions = group^,
+            dest = instruction.labels.copy(),
+          )
         )
-        g.add(label, bb^)
         block_count += 1
         group = []
     else:
+      # handles fallthrough scenarios where a block does not
+      # terminate with a control flow, so execution just moves
+      # to next label
+      if len(group) != 0:
+        var last_instr = group[len(group) - 1].instr().copy()
+        g.add(
+          label,
+          BasicBlock(
+            name = "blk-{}".format(block_count),
+            instructions = group^,
+            dest = last_instr.labels.copy(),
+          )
+        )
+        block_count += 1
       group = []
       label = code.label().name()
 
