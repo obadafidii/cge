@@ -17,10 +17,12 @@ def buildx(instructions: List[Code]) raises -> Graph:
 
   g.add_node(label)
 
+  # build graph nodes.
   for code in instructions:
     if code.is_label():
       g.add_node(code.label().name())
 
+  # map instructions to nodes.
   for code in instructions:
     if code.is_instr():
       var instruction = code.instr().copy()
@@ -45,7 +47,6 @@ def buildx(instructions: List[Code]) raises -> Graph:
     instructions = group^,
   )
   g.add(label, bb^)
-
   return g^
 
 def main() raises:

@@ -48,27 +48,22 @@ struct BasicBlock(Copyable, DebugWritable, Movable, Writable):
     w.write("}")
 
 
+
 struct Graph(Movable, Writable):
-  var graph: Dict[String, List[BasicBlock]]
+  var graph: Dict[String, Optional[BasicBlock]]
 
   def __init__(out self):
-    self.graph = Dict[String, List[BasicBlock]]()
+    self.graph = Dict[String, Optional[BasicBlock]]()
 
   def is_empty(self) -> Bool:
     return len(self.graph) == 0
 
   def add_node(mut self, node_name: String):
-    _ = self.graph.insert(node_name, List[BasicBlock]())
+    _ = self.graph.insert(node_name, None)
 
   # adds basic block
   def add(mut self, name: String, blk: BasicBlock):
-    var list = self.graph.find(name)
-    if list:
-      list.value().append(blk.copy())
-      self.graph[name] = list.value().copy()
-    else:
-      var node: List[BasicBlock] = [blk.copy()]
-      _ = self.graph.insert(name, node^)
+    _ = self.graph.insert(name, blk.copy())
 
   def write_to(self, mut w: Some[Writer]):
     if not self.graph:
@@ -77,11 +72,14 @@ struct Graph(Movable, Writable):
     w.write("Graph {\n")
     for entry in self.graph.items():
       w.write('  "', entry.key, '": [\n')
-      for blk in entry.value:
-        _indent(w, 2)
-        blk.write_debug(w, 2)
-        w.write(",\n")
-      w.write("  ],\n")
+      if entry.value:
+        for blk in entry.value:
+          _indent(w, 2)
+          blk.write_debug(w, 2)
+          w.write(",\n")
+        w.write("  ],\n")
+      else:
+        w.write("  ],\n")
     w.write("}")
 
 def is_control_passing(val: String) -> Bool:
