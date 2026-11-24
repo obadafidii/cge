@@ -50,12 +50,14 @@ def buildx(instructions: List[Code]) raises -> Graph:
       group = []
       label = code.label().name()
 
-  # isnert last block
-  var bb = BasicBlock(
-    name = "blk-{}".format(block_count),
-    instructions = group^,
+  # insert last block
+  g.add(
+    label,
+    BasicBlock(
+      name = "blk-{}".format(block_count),
+      instructions = group^,
+    )
   )
-  g.add(label, bb^)
   return g^
 
 def main() raises:
